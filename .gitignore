@@ -1,0 +1,9 @@
+coverage
+dist
+node_modules
+**/.DS_Store
+.env
+.serverless
+.idea
+cypress/screenshots
+cypress/videos

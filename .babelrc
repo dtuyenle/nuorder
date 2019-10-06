@@ -1,0 +1,5 @@
+{
+  "presets" : ["airbnb"],
+  "plugins": ["transform-async-to-generator", "source-map-support", "babel-plugin-root-import", "babel-plugin-styled-components"],
+  "ignore": ["node_modules/is_js"]
+}

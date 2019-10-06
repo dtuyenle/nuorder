@@ -1,0 +1,52 @@
+service: nuorder-ui-service
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: ${self:custom.stage}
+  region: ${self:custom.region}
+  tracing: true
+  profile: ${self:custom.profiles.${self:provider.stage}}
+  timeout: 30
+functions:
+  nuorder:
+    handler: dist/lambdas/nuorderLambda.handler
+    memorySize: 3008
+    package:
+      # We're including this file so it will be in the final package of this function only
+      include:
+        - dist/lambdas/nuorderLambda.js
+        - dist/lambdas/nuorderLambda.js.map
+    events:
+      - http:
+          method: get
+          path: nuorder
+          request:
+            parameters:
+              path:
+                productId: true
+                productSlug: true
+          response:
+            headers:
+              Content-Type: "'text/html'"
+plugins:
+  - serverless-offline
+  - serverless-finch
+  - serverless-plugin-tracing
+  - serverless-plugin-common-layers
+custom:
+  defaultRegion: us-east-1
+  defaultStage: dev
+  profiles:
+    dev: nuorder-dev
+    staging: nuorder-staging
+    prod: nuorder-prod
+  region: ${opt:region, self:custom.defaultRegion}
+  stage: ${opt:stage, self:custom.defaultStage}
+  serverless-offline:
+    port: 4000
+package:
+  individually: true
+  exclude:
+    - '**'
+  include:
+    - 'dist/public/nuorder/assets/manifest.json'
