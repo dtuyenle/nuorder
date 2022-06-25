@@ -80,7 +80,7 @@
     "lambchop": "git@github.com:dtuyenle/lamb.git",
     "lambda-api": "^0.10.2",
     "lodash.debounce": "^4.0.8",
-    "node-fetch": "^1.7.3",
+    "node-fetch": "^2.6.7",
     "prop-types": "^15.6.2",
     "query-string": "^6.1.0",
     "react": "^16.4.2",
